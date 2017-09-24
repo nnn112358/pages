@@ -1,0 +1,40 @@
+@charset "utf-8";
+/* - - - - - - - - - - - - - - - - - - *
+ * jQuery Reel Plugin 用スタイルシート *
+ * - - - - - - - - - - - - - - - - - - */
+
+/* 画像グループ */
+div.reel-overlay {
+}
+
+/* 画像 */
+div.reel-overlay img {
+}
+
+/* アクティブな画像 */
+div.reel-overlay img.reel {
+}
+
+/* キャッシュされている画像 */
+div.reel-overlay img.reel-cached {
+}
+
+/* loading バー */
+div.reel-preloader {
+	position:absolute;
+	top:0 !important;
+	height:15px;
+	line-height:15px;
+	font-size:11px;
+	white-space:nowrap;
+
+	border:1px solid #c96;
+	border-width:1px 0;
+	border-radius:0 0 24px 0;
+	background:#ffd !important;
+	color:#963;
+}
+div.reel-preloader:before {
+	content:"loading images ...";
+	padding:0 0.5em;
+}

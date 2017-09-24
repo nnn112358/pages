@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="utf-8" />
+	<title>【FC2用】画像をマウスのドラッグやホイールで360度ぐりぐり回せるスクリプト jQuery Reel Plugin 覚え書き</title>
+	<style type="text/css">
+		* { font-size:100%; }
+		body { font-size:93%; line-height:1.2; }
+		h1, h2 { font-size:120%; }
+		section { margin:1em 0 2em; padding:0 10px; }
+		section h2 { margin:0 -10px 0.5em; }
+		small { font-size:87%; }
+		em, var, kbd { font-weight:bold; font-style:normal; color:#c60; }
+		var { color:#33e; }
+		kbd { color:#f39; }
+		pre { border:1px solid #999; padding:0.5em 1em; }
+		pre small { font-size:100%; color:#393; }
+	</style>
+	<script src="./jquery.js"></script>
+	<script src="./jquery_mousewheel.js"></script>
+	<script src="./jquery_reel.js"></script>
+	<script src="./jquery_myzoom.js"></script>
+	<script src="./req_reel.js"></script>
+<script>
+$(function(){
+	// 画像のID
+	$('#reel_image').reel({
+		wheelable: false,
+		steppable: false,
+		frames: 10,	// フレーム数＝画像の枚数 (＝360÷1枚ごとの角度 -1)
+		images: 'phone/##.png' // 画像のパス
+			// ※"###"は連番の数字が入る、桁数のワイルドカード。連番は 1 からスタート
+	}).myZoom({
+		def: 1,	// ズームの既定値
+		max: 5,	// ズームの最大値
+		min: 1	// ズームの最小値
+	});
+});
+</script>
+</head>
+<body>
+	<h1>【FC2用】画像をマウスのドラッグで360度ぐりぐり回せるスクリプト jQuery Reel Plugin 覚え書き</h1>
+	<p>※このページはFC2ブログ用に記述を少し変更したものです。</p>
+
+<p><img src="image_001.jpg" id="reel_image" width="640" height="640" alt="" /></p>
+
+
+</body>
+</html>
