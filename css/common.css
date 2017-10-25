@@ -1,0 +1,251 @@
+@charset "utf-8";
+
+/* ========BASIC======== */
+body {
+   margin:0;
+   padding:0;
+   color:#333;
+   font-family:verdana, sans-serif;
+   font-style:normal;
+   font-weight:normal;
+   font-size:100%;;
+   text-align:center;
+   text-decoration:none;
+   letter-spacing:1px;
+   line-height:1.4;
+   background:#0C0004;
+}
+
+a {
+   color:#551A8B;
+   text-decoration:none;
+}
+
+
+a:link {
+   color:#551A8B;
+}
+
+a:visited {
+   color:#551A8B;
+}
+
+a:hover {
+color:#333;
+}
+
+br {
+   letter-spacing:normal;
+}
+
+img {
+   border:0;
+   vertical-align:bottom;
+}
+
+h1,h2,h3,h4,h5,h6 {
+   margin:0;
+   padding:0;
+   font-weight:bold;
+   font-size:88%;
+}
+
+p {
+   margin:0;
+   font-size:75%;
+}
+
+em {
+   font-weight:bold;
+   font-style:normal;
+}
+
+strong {
+   font-weight:bold;
+   color:#FF6535;
+}
+
+ins {
+   text-decoration: underline;
+}
+
+del {
+   color:#999;
+   text-decoration: line-through;
+}
+
+ul,ol {
+   margin:0 0 1em 2em;
+   padding:0;
+   font-size:75%;
+}
+
+dl{
+   margin:0;
+   padding:1em 0;
+   font-size:75%;
+   
+}
+
+th,td {
+   font-weight:normal;
+   font-size:75%;
+   text-align:left;
+}
+
+form {
+   margin:0;
+   font-size:75%;;
+
+}
+
+textarea,
+input[type=text],
+select {
+   font-size:100%;
+   background:#fff;
+   border:1px solid #333;
+   }
+
+/* ========TEMPLATE LAYOUT======== */
+#top {
+   position:relative;
+   width:700px;
+   margin:0 auto;
+   text-align:left;
+}
+
+#header {
+   position:relative;
+   width:660px;
+   height:100px;
+   padding:0 20px;
+   background:#fff url(../images/bg_header.gif) no-repeat;
+}
+
+#menu {
+   position:absolute;
+   left:20px;
+   bottom:0;
+}
+
+#contents {
+   width:660px;
+   padding:0 20px;
+   background:#FFF6D9;
+}
+
+#footer {
+   width:660px;
+   height:100px;
+   padding:0 20px;
+   background:#fff url(../images/bg_footer.gif) no-repeat;
+}
+
+/* ========HEADER CUSTOMIZE======== */
+#header h1 {
+   display:inline;
+   position:relative;
+   top:30px;
+   left:30px;
+   font-size:100%;
+}
+
+/* ========MENU CUSTOMIZE======== */
+#menu ul {
+   margin:0;
+   padding:0;
+   list-style:none;
+}
+
+#menu li {
+   display:inline;
+   padding-right:20px;
+}
+
+#menu li a {
+   padding-left:20px;
+}
+
+#menu li a:hover {
+   background:url(../images/mark.gif) top left no-repeat;
+}
+
+/* ========MAIN CONTENTS CUSTOMIZE======== */
+#contents h2 {
+   margin-bottom:5px;
+   padding-top:30px;
+   border-bottom:3px double #FF6535;
+   color:#FF6535;
+}
+
+#contents h3 {
+   margin-bottom:5px;
+   padding-top:30px;
+   border-bottom:1px solid #333;
+}
+
+#contents h4 {
+   margin-bottom:5px;
+   padding-top:30px;
+   font-weight:normal;
+}
+
+#contents h5 {
+   margin-bottom:5px;
+   padding-top:30px;
+   font-weight:normal;
+   font-size:75%;
+}
+
+#contents h6 {
+   margin-bottom:5px;
+   padding-top:30px;
+   font-weight:normal;
+   font-size:75%;
+}
+
+#contents dd {
+   margin-left:1em;
+}
+
+/* テンプレート概要のためのテーブルデザインですので
+   削除されても構いません */
+#contents .summary {
+   margin:0 0 20px 0;
+   padding:0;
+   border-collapse: collapse;
+   line-height:1.4;
+}
+
+#contents .summary th {
+   width:30%;
+   padding:5px;
+   padding-right:2em;
+   vertical-align:top;
+   border:1px solid #999;
+   font-weight:normal;
+}
+
+#contents .summary td {
+   width:70%;
+   padding:5px;
+   vertical-align:top;
+   border:1px solid #999;
+   border-left:3px double #999;
+   font-weight:normal;
+}
+/* ↑↑↑ テーブルデザイン ここまで ↑↑↑ */
+
+/* ========TOTOP CUSTOMIZE======== */
+.totop {
+   font-size:75%;
+   text-align:right;
+}
+
+/* ========FOOTER CUSTOMIZE======== */
+.copyright {
+   padding-top:30px;
+   font-size:70%;
+   text-align:center;
+}
