@@ -1,0 +1,50 @@
+.deg_btn {
+    position: relative;
+    display: inline-block;
+    text-decoration: none;
+    padding: 0 30px;
+    font-size: 19px;
+    height: 40px;
+    line-height: 40px!;
+    vertical-align: middle;
+    background: #51587b;
+    font-size: 20px;
+    color: rgb(255, 255, 255);
+    transition: .4s;
+}
+
+.deg_btn:before {
+    position: absolute;
+    content: '';
+    left: 0;
+    top: 0;
+    width: 0;
+    height: 0;
+    border: none;
+    border-left: solid 21px white;
+    border-bottom: solid 41px transparent;
+    z-index: 1;
+    transition: .4s;
+}
+
+.deg_btn:after {
+    position: absolute;
+    content: '';
+    right: 0;
+    top: 0;
+    width: 0;
+    height: 0;
+    border: none;
+    border-left: solid 21px transparent;
+    border-bottom: solid 41px white;
+    z-index: 1;
+    transition: .4s;
+}
+
+.deg_btn:hover:before, .deg_btn:hover:after{
+    border-left-width: 25px;
+}
+
+.deg_btn:hover{
+    background: #2c3148;
+}

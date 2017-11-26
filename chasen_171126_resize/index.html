@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<style>
+.btn{
+  display: inline-block; text-decoration: none; color: #37ab9d ; width: 150px;
+  height: 100px;  line-height: 100px;  border-radius: 50%;
+  border: solid 2px #37ab9d;  text-align: center;  vertical-align: middle;
+  overflow: hidden;  font-weight: bold;  transition: .4s;  font-size: 1.2em;
+}
+
+.btn:hover {
+    background: #b3e1ff;
+}
+
+
+
+.square_btn{
+    display: inline-block;
+    padding: 0.5em 1em;
+    text-decoration: none;
+    background: #37ab9d;/*ボタン色*/
+    color: #FFF;
+    border-bottom: solid 4px #B2E2EC;
+    border-radius: 3px;font-size: 2.40em;
+}
+.square_btn:active {/*ボタンを押したとき*/
+    -ms-transform: translateY(4px);
+    -webkit-transform: translateY(4px);
+    transform: translateY(4px);/*下に動く*/
+    box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.2);/*影を小さく*/
+    border-bottom: none;
+}
+
+h1 {
+color: #37ab9d   ;/*文字色*/
+border-bottom: dashed 2px #B2E2EC ;
+/*線の種類（点線）2px 線色*/
+}
+
+input[type="range"] {
+-webkit-appearance:none;
+width: 40%; background: #eee;
+box-shadow: 0 0 5px #00cc33;
+border-radius: 40px;
+}
+input[type="range"]::-webkit-slider-thumb {
+-webkit-appearance: none;
+background: #00cc00;
+width: 20px;
+height: 20px;
+border-radius: 50%;
+}
+input[type="range"]::-webkit-slider-thumb:hover {
+background: #00fa9a;
+}
+input[type="range"]::-webkit-slider-thumb:active {
+background: #00fa9a;
+}
+</style>
+
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+  <script type="text/javascript" src="./roslibjs/build/roslib.min.js"></script>
+  <script type="text/javascript" src="./ros2djs/build/ros2d.js"></script>
+
+
+
+   <script type="text/javascript" src="./js/smoothie.js"></script>
+
+ <script type="text/javascript">
+
+
+var hostname = location.hostname;
+    var timeline = new TimeSeries();
+
+  function init() {
+    // Connecting to ROS.
+    var ros = new ROSLIB.Ros({
+      url :'ws://'+hostname+':9090'
+    });
+}
+         
+ function pubMessage1() {
+	var ros = new ROSLIB.Ros({url : 'ws://'+hostname+':9090'});
+	var modeTopic = new ROSLIB.Topic({ros : ros,name : '/start',messageType : 'std_msgs/Int16'});
+	var int = new ROSLIB.Message({  data : 1});	
+	modeTopic.publish(int);
+   }
+ function pubMessage2() {
+	var ros = new ROSLIB.Ros({url : 'ws://'+hostname+':9090'});
+	var modeTopic = new ROSLIB.Topic({ros : ros,name : '/start',messageType : 'std_msgs/Int16'});
+	var int = new ROSLIB.Message({  data : 2});	
+	modeTopic.publish(int);
+   }
+ function pubMessage3() {
+	var ros = new ROSLIB.Ros({url : 'ws://'+hostname+':9090'});
+	var modeTopic = new ROSLIB.Topic({ros : ros,name : '/start',messageType : 'std_msgs/Int16'});
+	var int = new ROSLIB.Message({  data : 3});	
+	modeTopic.publish(int);
+   }
+ function pubMessage4() {
+	var ros = new ROSLIB.Ros({url : 'ws://'+hostname+':9090'});
+	var modeTopic = new ROSLIB.Topic({ros : ros,name : '/start',messageType : 'std_msgs/Int16'});
+	var int = new ROSLIB.Message({  data : 4});	
+	modeTopic.publish(int);
+   }
+ function pubMessage5() {
+	var ros = new ROSLIB.Ros({url : 'ws://'+hostname+':9090'});
+	var modeTopic = new ROSLIB.Topic({ros : ros,name : '/start',messageType : 'std_msgs/Int16'});
+	var int = new ROSLIB.Message({  data : 5});	
+	modeTopic.publish(int);
+   }
+ function pubMessage6() {
+	var ros = new ROSLIB.Ros({url : 'ws://'+hostname+':9090'});
+	var modeTopic = new ROSLIB.Topic({ros : ros,name : '/start',messageType : 'std_msgs/Int16'});
+	var int = new ROSLIB.Message({  data : 6});	
+	modeTopic.publish(int);
+   }
+ function pubMessage7() {
+	var ros = new ROSLIB.Ros({url : 'ws://'+hostname+':9090'});
+	var modeTopic = new ROSLIB.Topic({ros : ros,name : '/start',messageType : 'std_msgs/Int16'});
+	var int = new ROSLIB.Message({  data : 7});	
+	modeTopic.publish(int);
+   }
+ function pubMessage8() {
+	var ros = new ROSLIB.Ros({url : 'ws://'+hostname+':9090'});
+	var modeTopic = new ROSLIB.Topic({ros : ros,name : '/start',messageType : 'std_msgs/Int16'});
+	var int = new ROSLIB.Message({  data : 8});	
+	modeTopic.publish(int);
+   }
+ function pubMessage9() {
+	var ros = new ROSLIB.Ros({url : 'ws://'+hostname+':9090'});
+	var modeTopic = new ROSLIB.Topic({ros : ros,name : '/start',messageType : 'std_msgs/Int16'});
+	var int = new ROSLIB.Message({  data : 9});	
+	modeTopic.publish(int);
+   }
+ function pubMessage10() {
+	var ros = new ROSLIB.Ros({url : 'ws://'+hostname+':9090'});
+	var modeTopic = new ROSLIB.Topic({ros : ros,name : '/start',messageType : 'std_msgs/Int16'});
+	var int = new ROSLIB.Message({  data : 10});	
+	modeTopic.publish(int);
+   }
+ function pubMessage11() {
+	var ros = new ROSLIB.Ros({url : 'ws://'+hostname+':9090'});
+	var modeTopic = new ROSLIB.Topic({ros : ros,name : '/start',messageType : 'std_msgs/Int16'});
+	var int = new ROSLIB.Message({  data : 11});	
+	modeTopic.publish(int);
+   }
+ function pubMessage12() {
+	var ros = new ROSLIB.Ros({url : 'ws://'+hostname+':9090'});
+	var modeTopic = new ROSLIB.Topic({ros : ros,name : '/start',messageType : 'std_msgs/Int16'});
+	var int = new ROSLIB.Message({  data : 12});	
+	modeTopic.publish(int);
+   }
+ function pubMessage13() {
+	var ros = new ROSLIB.Ros({url : 'ws://'+hostname+':9090'});
+	var modeTopic = new ROSLIB.Topic({ros : ros,name : '/start',messageType : 'std_msgs/Int16'});
+	var int = new ROSLIB.Message({  data : 13});	
+	modeTopic.publish(int);
+   }
+ function pubMessage14() {
+	var ros = new ROSLIB.Ros({url : 'ws://'+hostname+':9090'});
+	var modeTopic = new ROSLIB.Topic({ros : ros,name : '/start',messageType : 'std_msgs/Int16'});
+	var int = new ROSLIB.Message({  data : 14});	
+	modeTopic.publish(int);
+   }
+ function pubMessage15() {
+	var ros = new ROSLIB.Ros({url : 'ws://'+hostname+':9090'});
+	var modeTopic = new ROSLIB.Topic({ros : ros,name : '/start',messageType : 'std_msgs/Int16'});
+	var int = new ROSLIB.Message({  data : 15});	
+	modeTopic.publish(int);
+   }
+
+
+
+    </script>
+
+
+
+</head>
+
+<body onload="init()">
+<center>
+<img src="11745.jpg" width="150">
+<h1> 茶道ロボ 151A</h1>
+<h3>Please select the operation</h3>
+<button id="sendMsg" type="button" onclick="pubMessage1()" class="btn" > お点前 </button>
+<br>
+<button id="sendMsg" type="button" onclick="pubMessage2()" class="btn" > 主菓子 </button>
+<br><br>
+<font size="5" face="cursive" color="#008080">茶筅の強さ　
+<input type="range" name="num" min="0" max="100" step="5" value="50"
+ onchange="changeValue(this.value)">
+
+<br><br>
+<font size="5" face="cursive" color="#008080">お茶碗を回す
+<input type="range" name="num" min="0.0" max="5.0" step="0.1" value="3"
+ onchange="changeValue(this.value)">
+
+<br><br><br>
+<img src="logo.jpg" width="150">
+<br><br><br><br><br><br>
+</center>
+
+ <hr> <hr>
+<center>
+
+<button id="sendMsg" type="button" onclick="pubMessage1()"  > シーケンス　i(in)：動作 </button>
+<button id="sendMsg" type="button" onclick="pubMessage2()"  > シーケンス　o(out)：動作</button>
+<button id="sendMsg" type="button" onclick="pubMessage3()"  > シーケンス　m(max):動作 </button>
+<button id="sendMsg" type="button" onclick="pubMessage4()"  > 茶筅1(1) </button>
+<button id="sendMsg" type="button" onclick="pubMessage5()"  > 茶筅2(2) </button>
+<button id="sendMsg" type="button" onclick="pubMessage6()"  > リフト3(3) </button>
+<button id="sendMsg" type="button" onclick="pubMessage7()"  > リフト4(4) </button>
+<button id="sendMsg" type="button" onclick="pubMessage8()"  > リフト5(5) </button>
+<button id="sendMsg" type="button" onclick="pubMessage9()"  > ターンテーブル6(6)</button>
+<button id="sendMsg" type="button" onclick="pubMessage10()" > ターンテーブル7(7)</button>
+<button id="sendMsg" type="button" onclick="pubMessage11()" > ターンテーブル8(8)</button>
+<button id="sendMsg" type="button" onclick="pubMessage12()" > 柄杓9(9) </button>
+<button id="sendMsg" type="button" onclick="pubMessage13()" > 柄杓0(0) </button>
+<button id="sendMsg" type="button" onclick="pubMessage14()" > 茶さじ動作f(f) </button>
+<button id="sendMsg" type="button" onclick="pubMessage15()" > 茶さじ動作g(g) </button>
+</center>
+
+ 
+</body>
+</html>

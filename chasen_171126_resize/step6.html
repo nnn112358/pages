@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- The default styling is provided by http://getbootstrap.com -->
+  <link href="css/bootstrap.css" rel="stylesheet">
+  <link href="css/main.css" rel="stylesheet">
+
+  <!-- jQuery and display.js are conveniences for interacting with the DOM -->
+  <script src="js/jquery.js"></script>
+  <script src="js/display.js"></script>
+
+  <!-- ROSLIBJS -->
+  <!-- EventEmitter2 is the sole dependency of roslibjs -->
+  <script src="js/eventemitter2.js"></script>
+  <!-- Roslibjs handles core ROS functionality in the browser -->
+  <script src="js/roslib.js"></script>
+
+  <!-- ROS2DJS -->
+  <!-- EaselJS is a dependency of ros2djs -->
+  <script src="js/easeljs.js"></script>
+  <!-- Ros2djs provides 2D scene support, including mapping and more -->
+  <script src="js/ros2d.js"></script>
+
+  <!-- ROS3DJS -->
+  <!-- Three.js is the WebGL rendering library -->
+  <script src="js/three.js"></script>
+  <!-- ColladaLoader2 loads collada models of the robot -->
+  <script src="js/ColladaLoader2.js"></script>
+  <!-- Ros3djs provides 3D scene support, including mapping and more -->
+  <script src="js/ros3d.js"></script>
+
+  <script>
+    function init() {
+      // ----------------------------------------------------------------------
+      // Connecting to rosbridge
+      // ----------------------------------------------------------------------
+
+      // The Ros object is responsible for connecting to rosbridge.
+      var ros = new ROSLIB.Ros();
+      // When a connection is established with rosbridge, a 'connection' event
+      // is emitted. In the event callback, we print a success message to the
+      // screen.
+      ros.on('connection', function() {
+        // displaySuccess is a convenience function for outputting messages in
+        // HTML.
+        displaySuccess('Roslibjs connected to rosbridge.');
+      });
+      // Connects to rosbridge.
+      ros.connect('ws://127.0.0.1:9090');
+
+      // ----------------------------------------------------------------------
+      // Subscribing to the robot's Pose
+      // ----------------------------------------------------------------------
+
+      // The ROSLIB.Topic handles subscribing and publishing a ROS topic. This
+      // topic interacts with the /robot_pose topic, published by the robot.
+      var poseTopic = new ROSLIB.Topic({
+        ros         : ros,
+        name        : '/robot_pose',
+        messageType : 'geometry_msgs/Pose'
+      });
+      // Subscribes to the robot's pose. When rosbridge receives the pose
+      // message from ROS, it forwards the message to roslibjs, which calls this
+      // callback.
+      poseTopic.subscribe(function(message) {
+        // Formats the pose for outputting.
+        var now = new Date();
+        var position = 'x: ' + message.position.x
+                + ', y: ' + message.position.y
+                + ', z: 0.0';
+        var orientation = 'x: ' + message.orientation.x
+                + ', y: ' + message.orientation.y
+                + ', z: ' + message.orientation.z
+                + ', w: ' + message.orientation.w;
+        // Prepends a row to the "poses" table with the formatted pose.
+        $('#poses > tbody > tr:first').after('<tr>'
+                + '<td>' + now.toLocaleTimeString() + '</td>'
+                + '<td>' + position + '</td>'
+                + '<td>' + orientation + '</td>');
+      });
+
+      // ----------------------------------------------------------------------
+      // Displaying a map
+      // ----------------------------------------------------------------------
+
+      // The ROS2D.Viewer is a 2D scene manager with additional ROS
+      // functionality.
+      var viewer2D = new ROS2D.Viewer({
+        divID : 'twod-map',
+        width : 300,
+        height : 300
+      });
+
+      // Subscribes to the robot's OccupancyGrid, which is ROS representation of
+      // the map, and renders the map in the scene.
+      var gridClient = new ROS2D.OccupancyGridClient({
+        ros : ros,
+        rootObject : viewer2D.scene
+      });
+      // Scale the canvas to fit to the map
+      gridClient.on('change', function() {
+        viewer2D.scaleToDimensions(gridClient.currentGrid.width, gridClient.currentGrid.height);
+        viewer2D.shift(gridClient.currentGrid.pose.position.x, gridClient.currentGrid.pose.position.y);
+        displayPoseMarker();
+      });
+
+      // ----------------------------------------------------------------------
+      // Showing the pose on the map
+      // ----------------------------------------------------------------------
+
+      function displayPoseMarker() {
+        // Create a marker representing the robot.
+        var robotMarker = new ROS2D.NavigationArrow({
+          size : 12,
+          strokeSize : 1,
+          fillColor : createjs.Graphics.getRGB(255, 128, 0, 0.66),
+          pulse : true
+        });
+        robotMarker.visible = false;
+
+        // Add the marker to the 2D scene.
+        gridClient.rootObject.addChild(robotMarker);
+        var initScaleSet = false;
+
+        // Subscribe to the robot's pose updates.
+        var poseListener = new ROSLIB.Topic({
+          ros : ros,
+          name : '/robot_pose',
+          messageType : 'geometry_msgs/Pose',
+          throttle_rate : 100
+        });
+        poseListener.subscribe(function(pose) {
+          // Orientate the marker based on the robot's pose.
+          robotMarker.x = pose.position.x;
+          robotMarker.y = -pose.position.y;
+          if (!initScaleSet) {
+            robotMarker.scaleX = 1.0 / viewer2D.scene.scaleX;
+            robotMarker.scaleY = 1.0 / viewer2D.scene.scaleY;
+            initScaleSet = true;
+          }
+          robotMarker.rotation = viewer2D.scene.rosQuaternionToGlobalTheta(pose.orientation);
+          robotMarker.visible = true;
+        });
+      }
+
+      // ----------------------------------------------------------------------
+      // Rendering the robot in 3D
+      // ----------------------------------------------------------------------
+
+      // Create the scene manager and view port for the 3D world.
+      var viewer3D = new ROS3D.Viewer({
+        divID      : 'threed-map',
+        width      : 600,
+        height     : 300,
+        antialias  : true,
+        background : '#EEEEEE'
+      });
+
+      // Create a TF client that subscribes to the fixed frame.
+      var tfClient = new ROSLIB.TFClient({
+        ros          : ros,
+        angularThres : 0.01,
+        transThres   : 0.01,
+        rate         : 10.0
+      });
+
+      // Add the URDF model of the robot.
+      var urdfClient = new ROS3D.UrdfClient({
+        ros        : ros,
+        tfClient   : tfClient,
+        path       : 'http://resources.robotwebtools.org/',
+        rootObject : viewer3D.scene
+      });
+
+      // ----------------------------------------------------------------------
+      // Rendering the map in 3D
+      // ----------------------------------------------------------------------
+
+      // Add the Occupancy Grid map.
+      var grid = new ROS3D.OccupancyGridClient({
+        ros        : ros,
+        tfClient   : tfClient,
+        rootObject : viewer3D.scene
+      });
+      grid.on('change', function() {
+        // Change the opacity level.
+        grid.currentGrid.children[0].material.transparent = true;
+        grid.currentGrid.children[0].material.opacity = 0.25;
+        grid.currentGrid.children[0].material.needsUpdate = true;
+      });
+    }
+  </script>
+</head>
+<body onload="init()">
+  <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="#">Robot Web Tools</a>
+    </div>
+  </div>
+  <div class="container">
+    <h1>Step 6 <small>Rendering the map in 3D</small></h1>
+    <div id="messages">
+      <div class="alert">
+        Waiting to connect to rosbridge.
+      </div>
+    </div>
+    <div class="row">
+      <!-- 3D Map -->
+      <div class="col-span-8">
+        <h3>3D Map</h3>
+        <div id="threed-map"></div>
+      </div>
+      <!-- 2D Map -->
+      <div class="col-span-4">
+        <h3>2D Map</h3>
+        <div id="twod-map"></div>
+      </div>
+    </div>
+    
+    
+    
+    
+    
+    <!-- Pose Table -->
+    <div class="row" id="pose-data">
+      <div class="col-span-12">
+        <h3>Robot's Pose</h3>
+        <table id="poses" class="table table-condensed">
+          <thead>
+          <tr>
+            <th>Time</th>
+            <th>Position</th>
+            <th>Orientation</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr></tr>
+          </tbody>
+        </table>
+      </div>
+
+  
+  
+</body>
+</html>
